@@ -36,3 +36,13 @@
     transform: rotate(360deg);
   }
 }
+
+.search-movie-img {
+  width: 100px;
+  height: auto;
+}
+
+.image-actor {
+  width: 100px;
+  height: auto;
+}
