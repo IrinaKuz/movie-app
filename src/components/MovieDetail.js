@@ -24,6 +24,8 @@ class MovieDetail extends Component {
                             <CardSubtitle>
                                 {this.props.movie.description}
                             </CardSubtitle>
+                            <p>{this.props.movie.year}</p>
+                            <p>IMDB {this.props.movie.imDbRating}</p>
                             <img
                                 className="search-movie-img"
                                 alt={this.props.movie.title}

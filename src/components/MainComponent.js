@@ -41,7 +41,6 @@ class MainComponent extends Component {
         fetch('https://imdb-api.com/en/API/SearchMovie/' + API_KEY + '/' + this.state.searchMovie)
         .then(response => {
             if (response.ok) {
-                console.log(this.state.searchMovie)
                 return response;
             } else {
                 this.setState({
@@ -69,6 +68,41 @@ class MainComponent extends Component {
         })
         .catch(err => console.log(err));
     }
+    componentDidMount() {
+        this.loadHomePageMovies();
+    }
+    loadHomePageMovies() {
+        fetch('https://imdb-api.com/en/API/MostPopularMovies/' + API_KEY)
+            .then(response => {
+                if (response.ok) {
+                    return response;
+                } else {
+                    this.setState({
+                        isLoaded: true,
+                        error
+                    })
+                    var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                    error.response = response;
+                    throw error;
+                }
+            }, 
+            error => {
+                var errmess = new Error(error.message);
+                throw errmess;
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                this.setState({ 
+                    movies: data.items,
+                    isLoaded: true,
+                    fetchMovie: false
+                })
+                console.log(this.state);
+            })
+            .catch(err => console.log(err));
+        
+    }
     render() {
         if(this.state.fetchMovie === true) {
             this.fetchMovies();
@@ -80,11 +114,12 @@ class MainComponent extends Component {
                             <Route path="/movie/:movieId" element={<GetParams />} />
                             <Route 
                                 path="/" 
-                                element={<HomeComponent
-                                    movies={this.state.movies}
-                                    error={this.state.error}
-                                    isLoaded={this.state.isLoaded}
-                                /> } 
+                                element={<HomeComponent 
+                                            searchMovie={this.state.searchMovie} 
+                                            movies={this.state.movies}
+                                            isLoaded={this.state.isLoaded}
+                                            error={this.state.error}
+                                        />} 
                             />   
                         </Routes>
                 </div>

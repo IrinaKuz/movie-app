@@ -97,7 +97,7 @@ class MovieDetailWithId extends Component {
                                 </div>
                             </Col>
                             <Col>
-                                <span>IMDB {movie.imdbRating}</span>
+                                <span>IMDB {movie.imDbRating}</span>
                             </Col>
                             
                         </header>

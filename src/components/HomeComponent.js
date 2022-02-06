@@ -8,23 +8,25 @@ class HomeComponent extends Component {
     }
 
     render() {
-
         const error = this.props.error;
         const isLoaded = this.props.isLoaded;
         const movies = this.props.movies;
-        if(error) {
-            return <div>Error: {error.message}</div>
-        } else if(!isLoaded) {
-            return <div>Loading...</div>
+        const searchMovie = this.props.searchMovie;
+        if(!isLoaded) {
+            return (
+                <div>Loading...</div>
+            )            
+        } else if (error) {
+                <div>{error}</div>
         } else {
-            console.log(movies)
             return(
                 <Container>
-                    <MovieSearchResult movies={movies} /> 
+                    <h1>{searchMovie == '' ? "Top 100 Most Polular Movies" : "Search Results"}</h1>
+                    <MovieSearchResult movies={movies} />
                 </Container>
             )
-        } 
-    }
+        }
+    } 
 }
 
 export default HomeComponent;
